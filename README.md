@@ -129,7 +129,24 @@ Open your browser at `http://localhost:8501` to view:
 - **Predefined Clinical Test Cases** (Scenarios 1 through 7 covering Normal, Variable, Late, and Terminal Decelerations).
 - **Direct CSV File Upload** with automatic FIGO classification and risk grading.
 
-### 3. Command-Line Interface (CLI)
+### 3. Launch the Decoupled FastAPI / ASGI Service
+
+```bash
+# Launch API server using console entry point
+nexoguard-api
+
+# Or directly with uvicorn
+uvicorn nexoguard.api.app:app --host 0.0.0.0 --port 8000 --reload
+```
+Interactive API docs are available at `http://localhost:8000/docs`:
+- `GET /api/health`: Operational readiness check
+- `GET /api/patients`: Full patient cohort metadata & ground truth
+- `GET /api/patients/{id}/stream`: Real-time 4 Hz telemetry time-series
+- `POST /api/predict`: Evaluate raw FHR/UC signal with FIGO guardrails
+- `POST /api/predict/upload`: Multipart CSV upload & triage
+- `WebSocket /api/ws/stream/{id}`: Sub-10ms latency live CTG telemetry stream
+
+### 4. Command-Line Interface (CLI)
 
 ```bash
 # List all available clinical test scenarios
@@ -145,7 +162,7 @@ nexoguard --patient 1001
 nexoguard --file path/to/patient_ctg.csv
 ```
 
-### 4. Running the Verification Suite
+### 5. Running the Verification Suite
 
 Run all automated unit tests and the 6-stage DSLC benchmark runner:
 
