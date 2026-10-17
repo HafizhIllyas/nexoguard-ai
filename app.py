@@ -162,35 +162,31 @@ model_pkg = load_model()
 backend_online, backend_ver = check_backend_service()
 
 # Header with dynamic backend status
-status_badge_html = f"""
-    <span style="font-family: monospace; font-size: 11px; color: #38bdf8; background: #0f172a; padding: 5px 10px; border-radius: 8px; border: 1px solid #1e293b; margin-left: 8px;">
-        ⚡ FastAPI Service: <strong style="color: {'#4ade80' if backend_online else '#94a3b8'};">{'ONLINE (v' + str(backend_ver) + ')' if backend_online else 'STANDBY'}</strong>
-    </span>
-"""
+srv_color = "#4ade80" if backend_online else "#94a3b8"
+srv_label = f"ONLINE (v{backend_ver})" if backend_online else "STANDBY"
+status_badge_html = f'<span style="font-family: monospace; font-size: 11px; color: #38bdf8; background: #0f172a; padding: 4px 8px; border-radius: 8px; border: 1px solid #1e293b; margin-left: 8px;">⚡ FastAPI Service: <strong style="color: {srv_color};">{srv_label}</strong></span>'
 
-st.markdown(f"""
-<div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 10px; margin-bottom: 12px;">
-    <div>
-        <div style="display: flex; gap: 8px; margin-bottom: 4px; align-items: center;">
-            <span style="background: rgba(20, 184, 166, 0.15); color: #2dd4bf; border: 1px solid rgba(20, 184, 166, 0.3); padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase;">Clinical AI Track</span>
-            <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700;">Live 4Hz Dual-Channel</span>
-            <span style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700;">FIGO 2015 Tier</span>
-            {status_badge_html}
-        </div>
-        <h1 style="font-size: 24px; font-weight: 900; margin: 0; color: #f8fafc; letter-spacing: -0.5px;">
-            NexoGuard AI <span style="color: #2dd4bf; font-weight: 500; font-size: 18px;">| Intrapartum Fetal Telemetry & Hypoxia Triage</span>
-        </h1>
-        <p style="font-size: 12px; color: #94a3b8; margin: 3px 0 0 0;">
-            Continuous 4 Hz Doppler FHR & TOCO monitoring with NexoPrima dynamic EMA baseline, contraction-deceleration lag analysis, and deterministic clinical guardrails.
-        </p>
-    </div>
-    <div style="text-align: right;">
-        <span style="font-family: monospace; font-size: 12px; color: #2dd4bf; background: #0f172a; padding: 6px 12px; border-radius: 8px; border: 1px solid #1e293b;">
-            🟢 Model: XGBoost + TreeSHAP Active
-        </span>
-    </div>
+st.markdown(f"""<div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 10px; margin-bottom: 12px;">
+<div>
+<div style="display: flex; gap: 8px; margin-bottom: 6px; align-items: center;">
+<span style="background: rgba(20, 184, 166, 0.15); color: #2dd4bf; border: 1px solid rgba(20, 184, 166, 0.3); padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase;">Clinical AI Track</span>
+<span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700;">Live 4Hz Dual-Channel</span>
+<span style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700;">FIGO 2015 Tier</span>
+{status_badge_html}
 </div>
-""", unsafe_allow_html=True)
+<h1 style="font-size: 24px; font-weight: 900; margin: 0; color: #f8fafc; letter-spacing: -0.5px;">
+NexoGuard AI <span style="color: #2dd4bf; font-weight: 500; font-size: 18px;">| Intrapartum Fetal Telemetry & Hypoxia Triage</span>
+</h1>
+<p style="font-size: 12px; color: #94a3b8; margin: 3px 0 0 0;">
+Continuous 4 Hz Doppler FHR & TOCO monitoring with NexoPrima dynamic EMA baseline, contraction-deceleration lag analysis, and deterministic clinical guardrails.
+</p>
+</div>
+<div style="text-align: right;">
+<span style="font-family: monospace; font-size: 12px; color: #2dd4bf; background: #0f172a; padding: 6px 12px; border-radius: 8px; border: 1px solid #1e293b;">
+🟢 Model: XGBoost + TreeSHAP Active
+</span>
+</div>
+</div>""", unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
 # Mode Selector: Predefined Clinical Test Cases vs. Upload Custom CTG Data
@@ -206,41 +202,39 @@ uploaded_guarded_df = None
 active_id = "1029"
 
 if telemetry_mode == "📁 Ingest Custom CTG (.csv)":
-    st.markdown("""
-    <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid #334155; border-radius: 12px; padding: 12px; margin-bottom: 12px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <span style="font-size: 12px; font-weight: 700; color: #38bdf8;">📂 Continuous Telemetry Ingestion</span>
-            <span style="font-size: 11px; color: #94a3b8;">Format: CSV with <code>fhr,uc</code> or <code>time_sec,fhr,uc</code> (4 Hz continuous)</span>
-        </div>
-    """, unsafe_allow_html=True)
-
-    up_col1, up_col2 = st.columns([6, 4])
-    with up_col1:
-        uploaded_file = st.file_uploader("Upload continuous 4Hz CTG (.csv):", type=["csv"], label_visibility="collapsed")
-    
-    with up_col2:
-        st.markdown("<div style='font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;'>Test with Pre-calibrated Sample Traces:</div>", unsafe_allow_html=True)
-        sample_map = {
-            "🟢 Cat I (Reassuring)": "sample_category_i_reassuring.csv",
-            "🟡 Cat II (Suspicious)": "sample_category_ii_suspicious.csv",
-            "🔴 Cat III (Pathological)": "sample_category_iii_pathological.csv",
-            "⚠️ Sensor Dropout": "sample_edge_case_sensor_dropout.csv"
-        }
-        sub_c1, sub_c2 = st.columns(2)
-        for idx, (label, fname) in enumerate(sample_map.items()):
-            fpath = os.path.join(SAMPLES_DIR, fname)
-            col = sub_c1 if idx % 2 == 0 else sub_c2
-            if os.path.exists(fpath):
-                with open(fpath, "rb") as fp:
-                    col.download_button(
-                        label=f"⬇️ {label}",
-                        data=fp.read(),
-                        file_name=fname,
-                        mime="text/csv",
-                        key=f"dl_btn_{fname}",
-                        use_container_width=True
-                    )
-    st.markdown("</div>", unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown(
+            '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">'
+            '<span style="font-size: 12px; font-weight: 700; color: #38bdf8;">📂 Continuous Telemetry Ingestion</span>'
+            '<span style="font-size: 11px; color: #94a3b8;">Format: CSV with <code>fhr,uc</code> or <code>time_sec,fhr,uc</code> (4 Hz continuous)</span>'
+            '</div>',
+            unsafe_allow_html=True
+        )
+        up_col1, up_col2 = st.columns([6, 4])
+        with up_col1:
+            uploaded_file = st.file_uploader("Upload continuous 4Hz CTG (.csv):", type=["csv"], label_visibility="collapsed")
+        with up_col2:
+            st.markdown('<div style="font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Test with Pre-calibrated Sample Traces:</div>', unsafe_allow_html=True)
+            sample_map = {
+                "🟢 Cat I (Reassuring)": "sample_category_i_reassuring.csv",
+                "🟡 Cat II (Suspicious)": "sample_category_ii_suspicious.csv",
+                "🔴 Cat III (Pathological)": "sample_category_iii_pathological.csv",
+                "⚠️ Sensor Dropout": "sample_edge_case_sensor_dropout.csv"
+            }
+            sub_c1, sub_c2 = st.columns(2)
+            for idx, (label, fname) in enumerate(sample_map.items()):
+                fpath = os.path.join(SAMPLES_DIR, fname)
+                col = sub_c1 if idx % 2 == 0 else sub_c2
+                if os.path.exists(fpath):
+                    with open(fpath, "rb") as fp:
+                        col.download_button(
+                            label=f"⬇️ {label}",
+                            data=fp.read(),
+                            file_name=fname,
+                            mime="text/csv",
+                            key=f"dl_btn_{fname}",
+                            use_container_width=True
+                        )
 
     if uploaded_file is not None:
         try:
@@ -807,19 +801,17 @@ st.markdown("### 📊 Clinical Model Inspection & SBAR Obstetric Handoff")
 col_metrics, col_actions = st.columns([7, 3])
 
 with col_metrics:
-    st.markdown("""
-    <div class="metric-card">
-        <div style="font-size: 13px; font-weight: 700; color: #38bdf8; margin-bottom: 8px;">
-            AI MODEL ARCHITECTURE: PHYSIOLOGY-INFORMED HYBRID (DSLC VALIDATED)
-        </div>
-        <div style="font-size: 12px; color: #94a3b8; line-height: 1.6;">
-            • <strong>Clinical Dataset:</strong> PhysioNet CTU-UHB Benchmark (509 continuous 10-minute windows across 40 hospital cases)<br>
-            • <strong>Patient Partitioning:</strong> 5-Fold Stratified Group K-Fold (Strict patient-level separation with Zero Data Leakage)<br>
-            • <strong>Safety Layer:</strong> Deterministic FIGO 2015 guardrail overrides (forces Category III on late decel lag &gt; 20s + STV &lt; 3.0ms)<br>
-            • <strong>Clinical Sensitivity:</strong> <strong>100% recall</strong> on umbilical cord acidemia (pH &lt; 7.15) and severe hypoxia.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("""<div class="metric-card">
+<div style="font-size: 13px; font-weight: 700; color: #38bdf8; margin-bottom: 8px;">
+AI MODEL ARCHITECTURE: PHYSIOLOGY-INFORMED HYBRID (DSLC VALIDATED)
+</div>
+<div style="font-size: 12px; color: #94a3b8; line-height: 1.6;">
+• <strong>Clinical Dataset:</strong> PhysioNet CTU-UHB Benchmark (509 continuous 10-minute windows across 40 hospital cases)<br>
+• <strong>Patient Partitioning:</strong> 5-Fold Stratified Group K-Fold (Strict patient-level separation with Zero Data Leakage)<br>
+• <strong>Safety Layer:</strong> Deterministic FIGO 2015 guardrail overrides (forces Category III on late decel lag &gt; 20s + STV &lt; 3.0ms)<br>
+• <strong>Clinical Sensitivity:</strong> <strong>100% recall</strong> on umbilical cord acidemia (pH &lt; 7.15) and severe hypoxia.
+</div>
+</div>""", unsafe_allow_html=True)
 
 with col_actions:
     active_payload = real_streams.get(active_id, {})
