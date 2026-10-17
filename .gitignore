@@ -56,5 +56,6 @@ desktop.ini
 *.tmp
 *.log
 
-# Scratch scripts
+# Scratch scripts & temporary agent caches
 scratch/
+.agents/

@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "generatedBy": "ecc-tools",
+  "profile": "lean-clinical",
+  "stack": "python-fastapi-streamlit-ml",
+  "commandFiles": [
+    ".claude/commands/feature-development.md",
+    ".claude/commands/database-migration.md"
+  ],
+  "router": ".claude/skills/skill-library/SKILL.md",
+  "updatedAt": "2026-10-18T03:00:00.000Z"
+}
