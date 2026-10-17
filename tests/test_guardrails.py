@@ -43,7 +43,7 @@ class TestClinicalGuardrails(unittest.TestCase):
             "baseline_bpm": 135.0,
             "decel_count": 1,
             "decel_max_depth_bpm": 38.0,
-            "decel_total_area": 2900.0,
+            "decel_total_area": 3200.0,
             "signal_loss_pct": 5.0
         }
         res = evaluate_single_window_guardrail(case, raw_category="Category I", raw_risk_score=0.15)
