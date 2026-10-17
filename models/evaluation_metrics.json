@@ -1,0 +1,33 @@
+{
+  "Normal (Cat I)": {
+    "precision": 0.4166666666666667,
+    "recall": 0.4166666666666667,
+    "f1-score": 0.4166666666666667,
+    "support": 12.0
+  },
+  "Suspicious (Cat II)": {
+    "precision": 0.8338368580060423,
+    "recall": 0.7282321899736148,
+    "f1-score": 0.7774647887323943,
+    "support": 379.0
+  },
+  "Pathological (Cat III)": {
+    "precision": 0.39156626506024095,
+    "recall": 0.5508474576271186,
+    "f1-score": 0.45774647887323944,
+    "support": 118.0
+  },
+  "accuracy": 0.6797642436149313,
+  "macro avg": {
+    "precision": 0.54735659657765,
+    "recall": 0.5652487714224668,
+    "f1-score": 0.5506259780907669,
+    "support": 509.0
+  },
+  "weighted avg": {
+    "precision": 0.7214714901009792,
+    "recall": 0.6797642436149313,
+    "f1-score": 0.6948393702094688,
+    "support": 509.0
+  }
+}

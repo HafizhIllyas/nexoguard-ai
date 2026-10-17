@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-10-17T18:11:41.918603+00:00",
+  "accuracy": 0.7269155206286837,
+  "macro_f1": 0.7378359249329759,
+  "weighted_f1": 0.7469208593836414,
+  "roc_auc": 0.9918,
+  "cat_iii_recall": 1.0,
+  "ph_under_715_recall": 1.0,
+  "ph_under_705_recall": 1.0,
+  "bdecf_ge_12_recall": 1.0,
+  "patient_level_sensitivity_ph_under_715": 1.0,
+  "confusion_matrix": [
+    [
+      8,
+      2,
+      2
+    ],
+    [
+      0,
+      203,
+      176
+    ],
+    [
+      0,
+      0,
+      118
+    ]
+  ],
+  "class_reports": {
+    "Category I": {
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.8,
+      "support": 12.0
+    },
+    "Category II": {
+      "precision": 0.991869918699187,
+      "recall": 0.6437994722955145,
+      "f1-score": 0.7808,
+      "support": 379.0
+    },
+    "Category III": {
+      "precision": 0.4627450980392157,
+      "recall": 1.0,
+      "f1-score": 0.6327077747989276,
+      "support": 118.0
+    }
+  }
+}

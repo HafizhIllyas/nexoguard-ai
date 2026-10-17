@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-10-17T18:11:42.831758+00:00",
+  "scenarios": {
+    "scenario_1_mild": {
+      "dropout_pct": 10.0,
+      "guardrail_override_count": 173,
+      "cat_iii_recall": 1.0,
+      "false_reassurance_count": 0,
+      "resilience_status": "PASSED"
+    },
+    "scenario_2_moderate": {
+      "dropout_pct": 25.0,
+      "guardrail_override_count": 423,
+      "cat_iii_recall": 0.9492,
+      "false_reassurance_count": 0,
+      "resilience_status": "PASSED"
+    },
+    "scenario_3_severe": {
+      "dropout_pct": 40.0,
+      "guardrail_override_count": 509,
+      "cat_iii_recall": 0.9237,
+      "false_reassurance_count": 0,
+      "resilience_status": "PASSED"
+    }
+  },
+  "guardrail_enforcement_rate": 0.7236,
+  "total_windows_evaluated": 1527,
+  "false_reassurance_count": 0,
+  "zero_false_reassurance_invariant_met": true,
+  "perturbation_engine_status": {
+    "scenario_1_mild": {
+      "empirical_dropout_pct": 6.42,
+      "empirical_noise_std_bpm": 2.01,
+      "samples_generated": 2400
+    },
+    "scenario_2_moderate": {
+      "empirical_dropout_pct": 24.25,
+      "empirical_noise_std_bpm": 5.67,
+      "samples_generated": 2400
+    },
+    "scenario_3_severe": {
+      "empirical_dropout_pct": 25.17,
+      "empirical_noise_std_bpm": 7.16,
+      "samples_generated": 2400
+    }
+  }
+}
