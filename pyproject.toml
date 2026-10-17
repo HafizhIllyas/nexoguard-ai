@@ -15,12 +15,15 @@ dependencies = [
     "scikit-learn>=1.2.0",
     "xgboost>=1.7.0",
     "joblib>=1.2.0",
-    "streamlit>=1.25.0"
+    "streamlit>=1.25.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0"
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
+    "httpx>=0.24.0",
     "shap>=0.42.0",
     "ruff>=0.1.0"
 ]
@@ -28,6 +31,7 @@ dev = [
 [project.scripts]
 nexoguard = "nexoguard.cli:main"
 nexoguard-test = "test_pipeline:main"
+nexoguard-api = "nexoguard.api.app:run_server"
 
 [tool.setuptools.packages.find]
 where = ["."]

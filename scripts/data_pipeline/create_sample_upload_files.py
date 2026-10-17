@@ -23,10 +23,8 @@ with open(STREAMS_PATH, "r") as f:
 # 1. Category I Reassuring (from Patient 1011 verified reassuring trace, pH 7.37, BD 1.7)
 from nexoguard.signal.reader import read_wfdb_record
 rec_1011 = read_wfdb_record("1011", data_dir=PROJECT_ROOT / "data")
-w0_fhr = rec_1011.fhr[7200:9600]
-w0_uc = rec_1011.uc[7200:9600]
-fhr_cat1 = np.concatenate([w0_fhr, w0_fhr[:1200]])
-uc_cat1 = np.concatenate([w0_uc, w0_uc[:1200]])
+fhr_cat1 = rec_1011.fhr[7200:9600]
+uc_cat1 = rec_1011.uc[7200:9600]
 n_pts1 = len(fhr_cat1)
 time_arr1 = np.round(np.arange(n_pts1) / 4.0, 2)
 df_cat1 = pd.DataFrame({
